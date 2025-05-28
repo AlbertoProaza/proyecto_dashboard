@@ -41,8 +41,9 @@ const sidebarOpen = ref(false);
                         Dashboard
                     </Link>
 
-                    <!-- Usuarios -->
-                    <Link href="/users"
+                    <!-- Usuarios - Solo si puede ver usuarios -->
+                    <Link v-if="$page.props.auth.permissions.includes('view_users')"
+                          href="/users"
                           :class="[
                               route().current('users*')
                                   ? 'bg-indigo-100 border-r-4 border-indigo-500 text-indigo-700'
@@ -55,8 +56,9 @@ const sidebarOpen = ref(false);
                         Usuarios
                     </Link>
 
-                    <!-- Roles y Permisos -->
-                    <Link href="/roles"
+                    <!-- Roles y Permisos - Solo admins -->
+                    <Link v-if="$page.props.auth.roles.includes('admin')"
+                          href="/roles"
                           :class="[
                               route().current('roles*')
                                   ? 'bg-indigo-100 border-r-4 border-indigo-500 text-indigo-700'
@@ -69,8 +71,9 @@ const sidebarOpen = ref(false);
                         Roles y Permisos
                     </Link>
 
-                    <!-- Publicaciones -->
-                    <Link href="/posts"
+                    <!-- Publicaciones - Solo si puede ver posts -->
+                    <Link v-if="$page.props.auth.permissions.includes('view_posts')"
+                          href="/posts"
                           :class="[
                               route().current('posts*')
                                   ? 'bg-indigo-100 border-r-4 border-indigo-500 text-indigo-700'
@@ -116,7 +119,7 @@ const sidebarOpen = ref(false);
                             </svg>
                             Dashboard
                         </Link>
-                        <Link href="/users" @click="sidebarOpen = false"
+                        <Link v-if="$page.props.auth.permissions.includes('view_users')" @click="sidebarOpen = false"
                               :class="[
                                   route().current('users*')
                                       ? 'bg-indigo-100 text-indigo-700'
@@ -128,7 +131,7 @@ const sidebarOpen = ref(false);
                             </svg>
                             Usuarios
                         </Link>
-                        <Link href="/roles" @click="sidebarOpen = false"
+                        <Link v-if="$page.props.auth.roles.includes('admin')" @click="sidebarOpen = false"
                               :class="[
                                   route().current('roles*')
                                       ? 'bg-indigo-100 text-indigo-700'
@@ -140,7 +143,7 @@ const sidebarOpen = ref(false);
                             </svg>
                             Roles y Permisos
                         </Link>
-                        <Link href="/posts" @click="sidebarOpen = false"
+                        <Link v-if="$page.props.auth.permissions.includes('view_posts')" @click="sidebarOpen = false"
                               :class="[
                                   route().current('posts*')
                                       ? 'bg-indigo-100 text-indigo-700'
